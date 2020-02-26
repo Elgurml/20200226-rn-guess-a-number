@@ -18,18 +18,18 @@ const GameScreen = props => {
   const [currentGuess, setCurrentGuess] = useState(
     generateRandomBetween(1, 100, props.userChoice)
   );
-  const [rounds, setRounds] = useState(0)
+  const [rounds, setRounds] = useState(0);
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
-  const { userChoice, onGameOver } = props  
-  // we do this to pull two new const out of the props. After doing that we can replace props.userChoice and props.onGameOver by userChoice and onGameOver 
+  const { userChoice, onGameOver } = props;
+  // we do this to pull two new const out of the props. After doing that we can replace props.userChoice and props.onGameOver by userChoice and onGameOver
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds)
+      onGameOver(rounds);
     }
-  }, [currentGuess, userChoice, onGameOver])
+  }, [currentGuess, userChoice, onGameOver]);
 
   const nextGuessHandler = direction => {
     if (
@@ -51,8 +51,8 @@ const GameScreen = props => {
       currentHigh.current,
       currentGuess
     );
-    setCurrentGuess(nextNumber)
-    setRounds(curRounds => curRounds + 1)
+    setCurrentGuess(nextNumber);
+    setRounds(curRounds => curRounds + 1);
   };
 
   return (
@@ -60,11 +60,18 @@ const GameScreen = props => {
       <Text>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.buttonContainer}>
-        <Button title="LOWER" onPress={nextGuessHandler.bind(this, "lower")} />
-        <Button
-          title="GREATER"
-          onPress={nextGuessHandler.bind(this, "greater")}
-        />
+        <View style={styles.button}>
+          <Button
+            title="LOWER"
+            onPress={nextGuessHandler.bind(this, "lower")}
+          />
+        </View>
+        <View style={styles.button}>
+          <Button
+            title="GREATER"
+            onPress={nextGuessHandler.bind(this, "greater")}
+          />
+        </View>
       </Card>
     </View>
   );
@@ -82,6 +89,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 300,
     maxWidth: "80%"
+  },
+  button: {
+    width: 100
   }
 });
 
