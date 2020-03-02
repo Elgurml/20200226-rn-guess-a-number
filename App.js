@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo"; // allows to finish loading only after a certain task is done (eg. fetching fonts)
 
@@ -26,7 +26,7 @@ export default function App() {
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setDataLoaded(true)}
-        onError={(err) => console.log(err)}
+        onError={err => console.log(err)}
       />
     );
   }
@@ -63,10 +63,11 @@ export default function App() {
   }
 
   return (
-    <View style={styles.screen}>
-      <Header title="Guess a Number" />
-      {content}
-    </View>
+    // SafeAreaView excludes the part of the screen with the notch (always wraps top parent tag)
+    <SafeAreaView style={styles.screen}>
+        <Header title="Guess a Number" />
+        {content}
+    </SafeAreaView>
   );
 }
 
